@@ -1,0 +1,354 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: #16152c99;
+  display: none;
+  place-items: center;
+  padding: 20px;
+  z-index: 5;
+}
+.overlay.show {
+  display: grid;
+}
+.modal {
+  position: relative;
+  background: white;
+  border-radius: 22px;
+  width: min(520px, 100%);
+  padding: 24px;
+  box-shadow: 0 25px 70px #1113;
+  max-height: 90vh;
+  overflow: auto;
+}
+.modalhead {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.modalhead h2 {
+  grid-column: 1 / 3;
+}
+.modalhead h2 {
+  font: 700 24px 'Space Grotesk';
+  margin: 0;
+}
+.close {
+  border: 0;
+  background: #f2f1f6;
+  border-radius: 9px;
+  width: 34px;
+  height: 34px;
+  font-size: 20px;
+}
+.levelBadge {
+  background: #f2efff;
+  color: #6148e8;
+  border-radius: 99px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.doneBtn {
+  border: 0;
+  background: #252448;
+  color: white;
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-weight: 800;
+}
+.game {
+  background: #f8f7fc;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  min-height: 220px;
+}
+.game p {
+  color: var(--muted);
+}
+.game button {
+  border: 0;
+  background: var(--purple);
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 5px;
+  font-weight: 700;
+}
+.game .soft {
+  background: #fff;
+  color: #5548a3;
+  border: 1px solid #ded9fa;
+}
+.big {
+  font: 700 38px 'Space Grotesk';
+  margin: 15px;
+}
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  max-width: 330px;
+  margin: 15px auto;
+}
+.tile {
+  height: 60px;
+  background: #e9e4ff;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+}
+.tile.done {
+  background: #d9f6e9;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 240px;
+  margin: 14px auto;
+  gap: 7px;
+}
+.cell {
+  height: 70px;
+  background: #fff;
+  border: 1px solid #e7e4f2;
+  border-radius: 10px;
+  font-size: 30px;
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  transition:
+    transform 0.16s,
+    box-shadow 0.16s,
+    border-color 0.16s;
+}
+.cell:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px #24204418;
+}
+.cell.mark-x {
+  color: #fff;
+  background: #7657ff;
+  border-color: #6849ed;
+  text-shadow: 0 2px 10px #27127c66;
+}
+.cell.mark-x.winner {
+  color: #fff;
+  background: #6041e0;
+  border-color: #4f32c6;
+  text-shadow: 0 2px 12px #21105f88;
+}
+.cell.mark-o {
+  color: #12a7bc;
+  text-shadow: 0 4px 14px #12a7bc55;
+}
+.cell.placed {
+  animation: tttPop 0.28s cubic-bezier(0.2, 1.5, 0.5, 1);
+}
+.cell.winner {
+  border-color: #9c86ff;
+  background: #f0ecff;
+  animation: tttWin 0.65s ease-in-out infinite alternate;
+}
+@keyframes tttPop {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes tttWin {
+  from {
+    box-shadow: 0 0 0 0 #7657ff20;
+    transform: scale(1);
+  }
+  to {
+    box-shadow: 0 0 18px 4px #7657ff45;
+    transform: scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cell.placed,
+  .cell.winner {
+    animation: none;
+  }
+}
+input.guess {
+  padding: 11px;
+  border: 1px solid #dedbe8;
+  border-radius: 9px;
+  width: 110px;
+  text-align: center;
+  font-size: 16px;
+}
+.toast {
+  color: #604ce5;
+  font-weight: 700;
+  min-height: 24px;
+}
+.result-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #18143dbb;
+  border-radius: 22px;
+}
+.result-overlay.show {
+  display: flex;
+}
+.result-card {
+  position: relative;
+  overflow: hidden;
+  width: min(360px, 100%);
+  padding: 28px 24px;
+  text-align: center;
+  background: linear-gradient(145deg, #fff 0%, #f5f1ff 100%);
+  border: 1px solid #ffffffb0;
+  border-radius: 22px;
+  box-shadow: 0 18px 55px #130d3d66;
+  animation: resultIn 0.35s cubic-bezier(0.2, 1.4, 0.5, 1);
+}
+.result-overlay.win .result-card {
+  background: linear-gradient(145deg, #fff8d8, #f4eaff 55%, #e6f8ff);
+}
+.result-icon {
+  font-size: 54px;
+  line-height: 1.1;
+  animation: resultPop 0.55s ease-out;
+}
+.result-card h3 {
+  font: 700 27px 'Space Grotesk';
+  margin: 12px 0 6px;
+}
+.result-card p {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.result-actions button {
+  margin: 0;
+}
+.result-confetti {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-size: 25px;
+  letter-spacing: 15px;
+  opacity: 0.8;
+  animation: confettiDrop 1.4s ease-out both;
+}
+.result-overlay.win .result-confetti {
+  display: block;
+}
+@keyframes resultIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes resultPop {
+  0% {
+    transform: scale(0.35) rotate(-20deg);
+  }
+  75% {
+    transform: scale(1.18) rotate(7deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes confettiDrop {
+  from {
+    transform: translateY(-24px);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.9;
+  }
+  to {
+    transform: translateY(18px);
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-card,
+  .result-icon,
+  .result-confetti {
+    animation: none;
+  }
+}
+@media (max-width: 850px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero:after {
+    right: 20px;
+    font-size: 110px;
+  }
+  .stats {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .top {
+    padding: 0 17px;
+  }
+  .nav {
+    display: none;
+  }
+  .wrap {
+    padding: 24px 16px;
+  }
+  .hero {
+    padding: 28px 24px;
+    min-height: 235px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    max-width: 230px;
+  }
+  .hero p {
+    max-width: 220px;
+    line-height: 1.5;
+  }
+  .hero:after {
+    font-size: 90px;
+    right: 7px;
+    top: 24px;
+  }
+  .section {
+    gap: 10px;
+  }
+  .search {
+    width: 150px;
+  }
+  .grid {
+    gap: 10px;
+  }
+  .art {
+    height: 105px;
+  }
+  .foot {
+    gap: 10px;
+  }
+}

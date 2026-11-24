@@ -1,0 +1,337 @@
+@import './tokens.css';
+@import './catalog.css';
+@import './play-screen.css';
+
+html {
+  scroll-behavior: smooth;
+}
+body.playing {
+  overflow: hidden;
+}
+.overlay {
+  inset: 0;
+  padding: 0;
+  background: #f8f7fc;
+  place-items: stretch;
+  z-index: 20;
+}
+.overlay.show {
+  display: block;
+}
+.modal {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: auto;
+  box-shadow: none;
+  background: #f8f7fc;
+}
+.modalhead {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0;
+  padding: 12px max(18px, env(safe-area-inset-right)) 12px max(18px, env(safe-area-inset-left));
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+.modalhead h2 {
+  font: 700 20px 'Space Grotesk';
+  margin: 0 auto 0 0;
+}
+.close {
+  display: none;
+}
+.doneBtn {
+  min-height: 44px;
+  padding: 10px 18px;
+}
+.levelBadge {
+  white-space: nowrap;
+}
+.game {
+  width: min(900px, 100%);
+  min-height: calc(100dvh - 78px);
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 42px);
+  border-radius: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+.game > p {
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 650px;
+}
+.game button,
+.result-actions button {
+  min-height: 48px;
+  touch-action: manipulation;
+}
+.tiles {
+  width: min(100%, 400px);
+}
+.tile {
+  min-height: 60px;
+}
+.board {
+  width: min(100%, 330px);
+  max-width: 330px;
+}
+.cell {
+  height: auto;
+  aspect-ratio: 1;
+  min-height: 64px;
+  font-size: clamp(30px, 8vw, 48px);
+}
+.result-overlay {
+  position: fixed;
+  inset: 0;
+  border-radius: 0;
+  background: #18143dcc;
+  z-index: 5;
+}
+.result-card {
+  max-height: 90dvh;
+  overflow: auto;
+}
+.result-actions button {
+  padding: 12px 16px;
+}
+.pause-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #201d3ac9;
+  display: none;
+  place-items: center;
+  padding: 20px;
+}
+.pause-screen.show {
+  display: grid;
+}
+.pause-card {
+  width: min(390px, 100%);
+  background: white;
+  border-radius: 22px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 20px 60px #1114;
+}
+.pause-card h3 {
+  font: 700 28px 'Space Grotesk';
+  margin: 4px 0 8px;
+}
+.pause-card p {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.pause-card button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  min-height: 48px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--purple);
+  color: white;
+  font-weight: 800;
+}
+.pause-card button.soft {
+  background: #f2efff;
+  color: #5548a3;
+}
+.save-note {
+  color: #76758b;
+  font-size: 13px;
+  margin-top: 18px;
+}
+.touch-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 54px);
+  grid-template-rows: repeat(2, 48px);
+  gap: 4px;
+  justify-content: center;
+  margin: 8px auto;
+}
+.touch-pad button {
+  margin: 0 !important;
+  padding: 4px !important;
+}
+.touch-pad .up {
+  grid-column: 2;
+}
+.touch-pad .left {
+  grid-column: 1;
+  grid-row: 2;
+}
+.touch-pad .down {
+  grid-column: 2;
+  grid-row: 2;
+}
+.touch-pad .right {
+  grid-column: 3;
+  grid-row: 2;
+}
+.game canvas {
+  max-height: 48dvh;
+  object-fit: contain;
+  touch-action: none;
+}
+.game input {
+  min-height: 48px;
+}
+.game [data-i] {
+  min-width: 44px;
+  min-height: 62px;
+}
+.catalog-progress {
+  font-size: 12px;
+  color: #746f88;
+}
+.card {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.card:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #a99afc;
+  outline-offset: 2px;
+}
+#g2048 {
+  touch-action: none;
+  user-select: none;
+}
+@supports (height: 100dvh) {
+  .modal {
+    height: 100dvh;
+  }
+  .game {
+    min-height: calc(100dvh - 78px);
+  }
+}
+@media (max-width: 560px) {
+  .modalhead {
+    padding-top: max(10px, env(safe-area-inset-top));
+    gap: 8px;
+  }
+  .modalhead h2 {
+    font-size: 17px;
+  }
+  .levelBadge {
+    font-size: 11px;
+    padding: 7px;
+  }
+  .game {
+    min-height: calc(100dvh - 72px);
+    padding: 16px max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+  }
+  .tiles {
+    gap: 7px;
+  }
+  .tile {
+    font-size: 22px;
+  }
+  .board {
+    gap: 8px;
+  }
+  .cell {
+    min-height: 72px;
+  }
+  .result-card {
+    padding: 24px 18px;
+  }
+  .game canvas {
+    max-width: 100%;
+  }
+}
+.pause-screen {
+  padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+    max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+}
+.daily-card {
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.reset-progress {
+  border: 0;
+  background: transparent;
+  color: #77758a;
+  text-decoration: underline;
+  min-height: 44px;
+  padding: 8px 0;
+  font: inherit;
+}
+.theme-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.theme-option {
+  border: 1px solid #e8e6ee;
+  background: #fff;
+  color: #6d6980;
+  border-radius: 20px;
+  min-height: 44px;
+  padding: 6px 13px;
+  font-size: 0.875rem;
+}
+.theme-option.active {
+  background: #252448;
+  color: #fff;
+}
+.intro-screen {
+  max-width: 470px;
+  margin: 0 auto;
+}
+.intro-screen h2 {
+  font: 700 32px 'Space Grotesk';
+  margin: 8px;
+}
+.intro-screen p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+.intro-screen .primary {
+  margin-top: 10px;
+  min-width: 170px;
+}
+.hint-card {
+  outline: 3px solid #f0cc4d;
+  outline-offset: 1px;
+}
+.math-ops {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+body[data-theme='berry'] {
+  --paper: #fff7fb;
+  --purple: #ca4a83;
+  --line: #f2dce8;
+}
+body[data-theme='berry'] .logo {
+  background: #ca4a83;
+}
+body[data-theme='ocean'] {
+  --paper: #f2fbff;
+  --purple: #267fb5;
+  --line: #d9edf5;
+}
+body[data-theme='ocean'] .logo {
+  background: #267fb5;
+}

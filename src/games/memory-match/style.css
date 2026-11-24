@@ -1,0 +1,43 @@
+.game .memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  max-width: 460px;
+  gap: 12px;
+  margin: 24px auto;
+}
+.game .memory-grid .tile {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.15;
+  max-height: clamp(60px, calc((100dvh - 510px) / var(--rows)), 96px);
+  border: 2px solid #fff8;
+  background: repeating-linear-gradient(135deg, #7762da 0 12px, #7058d0 12px 24px);
+  box-shadow: 0 4px 0 #5943b2;
+  color: #ece4ff;
+  font-size: clamp(24px, 5vw, 38px);
+  transition:
+    transform 160ms,
+    background 160ms,
+    box-shadow 160ms;
+}
+.game .memory-grid .tile.revealed,
+.game .memory-grid .tile.hint-card {
+  background: #fff7e9;
+  border-color: #f3d5a4;
+  box-shadow: 0 4px 0 #e5ccab;
+  transform: translateY(-2px);
+}
+.game .memory-grid .tile.done {
+  background: #e2f5e8;
+  border-color: #a5d8b7;
+  box-shadow: none;
+  transform: scale(0.94);
+}
+@media (prefers-reduced-motion: reduce) {
+  .game .memory-grid .tile {
+    transition: none;
+  }
+}

@@ -1,0 +1,279 @@
+.garden-grid {
+  --garden-channel: #857052;
+  --garden-water: #0078a1;
+  display: grid;
+  grid-template-columns: repeat(var(--garden-columns), minmax(0, 1fr));
+  gap: 4px;
+  width: min(100%, calc(var(--garden-columns) * 74px));
+  margin: 18px auto;
+  padding: 8px;
+  border: 1px solid #c4d9bb;
+  border-radius: 16px;
+  background: #e3efd9;
+}
+
+.garden-tile,
+.garden-empty {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 8px;
+}
+
+.garden-empty {
+  background: #d5e6ca;
+}
+
+.garden-tile,
+.garden-stage button.garden-tile {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ddd3b8;
+  background: #fff7e3;
+}
+
+.garden-stage button.garden-tile:active {
+  transform: none;
+}
+
+.garden-stage button.garden-tile:focus-visible {
+  z-index: 1;
+}
+
+.garden-arm {
+  position: absolute;
+  background: var(--garden-channel);
+  pointer-events: none;
+}
+
+.garden-north,
+.garden-south {
+  inset-inline: 42%;
+}
+
+.garden-east,
+.garden-west {
+  inset-block: 42%;
+}
+
+.garden-north {
+  inset-block: 0 42%;
+}
+
+.garden-south {
+  inset-block: 42% 0;
+}
+
+.garden-east {
+  inset-inline: 42% 0;
+}
+
+.garden-west {
+  inset-inline: 0 42%;
+}
+
+.garden-flow {
+  z-index: 1;
+  overflow: hidden;
+  background: var(--garden-water);
+}
+
+.garden-flow::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #d2f7ff;
+  content: '';
+  animation: garden-current 900ms linear infinite;
+}
+
+.garden-north {
+  --garden-drift-y: -16px;
+}
+
+.garden-south {
+  --garden-drift-y: 16px;
+}
+
+.garden-east {
+  --garden-drift-x: 16px;
+}
+
+.garden-west {
+  --garden-drift-x: -16px;
+}
+
+@keyframes garden-current {
+  from {
+    transform: translate(
+      calc(-50% - var(--garden-drift-x, 0px)),
+      calc(-50% - var(--garden-drift-y, 0px))
+    );
+  }
+
+  to {
+    transform: translate(
+      calc(-50% + var(--garden-drift-x, 0px)),
+      calc(-50% + var(--garden-drift-y, 0px))
+    );
+  }
+}
+
+.garden-paused .garden-flow::after {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-flow::after {
+    display: none;
+  }
+}
+
+.garden-can,
+.garden-flower-marker {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.garden-can {
+  width: 35%;
+  height: 32%;
+  border-radius: 3px 3px 7px 7px;
+  background: #21617c;
+}
+
+.garden-can::before,
+.garden-can::after {
+  position: absolute;
+  content: '';
+}
+
+.garden-can::before {
+  top: 8%;
+  left: -49%;
+  width: 60%;
+  height: 61%;
+  border: 2px solid #21617c;
+  border-radius: 50%;
+}
+
+.garden-can::after {
+  right: -60%;
+  bottom: 38%;
+  width: 75%;
+  height: 33%;
+  border-radius: 3px;
+  transform: rotate(-35deg);
+  background: #21617c;
+}
+
+.garden-flower-marker {
+  width: 44%;
+  height: 58%;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  color: #a71658;
+}
+
+.garden-flower-marker::before {
+  position: absolute;
+  inset: 34% calc(50% - 2px) 0;
+  border-radius: 2px;
+  background: #24633f;
+  content: '';
+}
+
+.garden-flower-marker::after {
+  position: absolute;
+  inset: 12% 34% 52%;
+  border-radius: 50%;
+  background: #a71658;
+  content: '';
+}
+
+.garden-flower-marker span {
+  display: none;
+  z-index: 1;
+  font-size: clamp(1.2rem, 6vw, 2.1rem);
+  line-height: 0.85;
+}
+
+.garden-wet .garden-flower-marker::after {
+  display: none;
+}
+
+.garden-wet .garden-flower-marker span {
+  display: block;
+}
+
+.garden-stage .stage-bottom button {
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
+.garden-step-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.garden-warning {
+  color: #9b3d0d;
+}
+
+.garden-tile.garden-weed {
+  border-color: #d9bc83;
+  background: #fff1cc;
+}
+
+.garden-tile.garden-weed.garden-wet {
+  border: 2px dashed #9b3d0d;
+  background: #ffe2b7;
+}
+
+.garden-weed-marker {
+  z-index: 2;
+  color: #8d480e;
+  font-size: clamp(1rem, 5vw, 1.6rem);
+  line-height: 1;
+}
+
+.garden-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.garden-stage .garden-actions button {
+  flex-shrink: 1;
+  margin: 0;
+}
+
+.garden-stage .session-hud > div {
+  padding-inline: 4px;
+}
+
+.garden-stage #garden-heading:focus {
+  outline-offset: 4px;
+}
+
+@media (max-width: 420px) {
+  .garden-stage {
+    padding-inline: 10px;
+  }
+
+  .garden-grid {
+    gap: 3px;
+    padding: 4px;
+  }
+}

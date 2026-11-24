@@ -1,0 +1,109 @@
+.golf-stage {
+  display: grid;
+  width: min(100%, 620px);
+  margin-inline: auto;
+  gap: 12px;
+}
+
+.golf-stage .stage-heading {
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.golf-score {
+  padding-block: 9px;
+}
+
+.golf-green {
+  width: min(100%, 81.5dvh);
+  justify-self: center;
+  border-radius: 16px;
+  background: #25463e;
+  box-shadow: 0 3px 0 #14362d;
+}
+
+.game .golf-green canvas {
+  display: block;
+  border-radius: inherit;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 360 / 212;
+  object-fit: fill;
+  cursor: grab;
+  touch-action: none;
+}
+
+.golf-feedback {
+  min-height: 2.6em;
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.golf-green canvas:active {
+  cursor: grabbing;
+}
+
+.golf-stage [hidden] {
+  display: none;
+}
+
+.golf-readout {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.golf-note,
+.golf-keys {
+  margin: 0;
+  text-align: center;
+}
+
+.golf-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.golf-scorecard {
+  border: 1px solid #ddd8e7;
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: #faf8fc;
+  font-size: 0.88rem;
+}
+
+.golf-scorecard summary {
+  padding: 5px 0;
+  text-align: left;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.golf-scorecard table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.golf-scorecard th,
+.golf-scorecard td {
+  padding: 5px 3px;
+  border-top: 1px solid #e8e2ef;
+}
+
+.golf-scorecard th:first-child {
+  text-align: left;
+}
+
+.golf-scorecard tfoot {
+  font-weight: 700;
+}

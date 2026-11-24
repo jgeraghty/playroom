@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root {
+  --ink: #222344;
+  --muted: #777991;
+  --paper: #faf9f6;
+  --purple: #7057f5;
+  --line: #eeedf1;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
